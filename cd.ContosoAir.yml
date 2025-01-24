@@ -27,7 +27,6 @@ steps:
     definition: '3'
     buildVersionToDownload: 'latest'
     targetPath: '$(Pipeline.Workspace)'
-
 - task: AzureResourceManagerTemplateDeployment@3
   inputs:
     deploymentScope: 'Resource Group'
@@ -41,7 +40,6 @@ steps:
     csmParametersFile: '$(Pipeline.Workspace)/drop/Templates/azuredeploy.parameters.json'
     overrideParameters: '-p_environment $(web_environment) -p_site_prefix $(web_prefix) -p_site_web_name $(web_site)'
     deploymentMode: 'Incremental'
-
 - task: AzureRmWebAppDeployment@4
   inputs:
     ConnectionType: 'AzureRM'
@@ -49,7 +47,8 @@ steps:
     appType: 'webApp'
     WebAppName: '$(web_prefix)-$(web_site)-$(web_environment)'
     packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
-- script: |
+
+- script:
     echo Add other tasks to build, test, and deploy your project.
     echo See https://aka.ms/yaml
   displayName: 'Run a multi-line script'
